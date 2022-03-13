@@ -27,5 +27,11 @@ namespace PWCDemo
                 _currentArrow = SpawnArrow();
             }
         }
+
+
+        private void Awake()
+        {
+            SpawnArrow();
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace PWCDemo
         private Transform _cachedHandPosition = null;
         private XRInteractionManager _cachedInteractionManager = null;
         private Arrow _currentArrow = null;
+        private Vector3 _defaultArrowParentPosition = Vector3.zero;
 
         public XRInteractionManager CachedInteractionManager
         {
@@ -45,11 +46,9 @@ namespace PWCDemo
             CachedInteractionManager.CancelInteractableSelection((IXRSelectInteractable)_currentArrow.Interactable);
             _currentArrow.Interactable.enabled = false;
 
-            _currentArrow.Rigidbody.isKinematic = true;
-            _currentArrow.Rigidbody.useGravity = false;
+            _currentArrow.SetRigidbodyLocked(true);
 
             _currentArrow.transform.SetParent(_arrowParent);
-
             _currentArrow.transform.localPosition = Vector3.zero;
             _currentArrow.transform.localRotation = Quaternion.identity;
 
@@ -64,12 +63,12 @@ namespace PWCDemo
 
             Vector3 force = _currentArrow.transform.forward * _forceModifier * Vector3.Distance(_currentArrow.transform.position, _arrowPoint.position);
 
-            _currentArrow.Rigidbody.isKinematic = false;
-            _currentArrow.Rigidbody.useGravity = true;
-            
             _currentArrow.transform.SetParent(null);
+            _arrowParent.localPosition = _defaultArrowParentPosition;
 
+            _currentArrow.SetRigidbodyLocked(false);
             _currentArrow.Rigidbody.AddForce(force, ForceMode.Impulse);
+
             _currentArrow.SetInFlight(true);
             _currentArrow = null;
 
@@ -94,8 +93,7 @@ namespace PWCDemo
 
         private void OnReleasePerformed(InputAction.CallbackContext context)
         {
-            float grip = context.action.ReadValue<float>();
-            if (grip < 1f) _ = ReleaseArrow();
+            _ = ReleaseArrow();
         }
 
         private void Update()
@@ -109,11 +107,12 @@ namespace PWCDemo
 
         private void Awake()
         {
+            _defaultArrowParentPosition = _arrowParent.localPosition;
             _volume.OnVolumeEnter += OnVolumeEnter;
 
             foreach (var releaseAction in _releaseActions)
             {
-                releaseAction.action.performed += OnReleasePerformed;
+                releaseAction.action.canceled += OnReleasePerformed;
             }
         }
     }

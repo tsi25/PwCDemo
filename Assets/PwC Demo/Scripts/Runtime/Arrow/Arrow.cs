@@ -21,11 +21,15 @@ namespace PWCDemo
         [field: SerializeField]
         private TrailRenderer TrailRenderer { get; set; } = null;
 
+        private Quaternion _rotationLastFrame = Quaternion.identity;
+        private Vector3 _positionLastFrame = Vector3.zero;
+
         private Quaternion _flightRotation = Quaternion.identity;
 
         public void Initialize()
         {
-
+            SetRigidbodyLocked(false);
+            Interactable.enabled = true;
         }
 
         public void SetInFlight(bool inFlight)
@@ -34,11 +38,21 @@ namespace PWCDemo
             TrailRenderer.gameObject.SetActive(inFlight);
         }
 
+        public void SetRigidbodyLocked(bool locked)
+        {
+            Rigidbody.useGravity = !locked;
+            Rigidbody.isKinematic = locked;
+        }
+
         private void Update()
         {
             if(InFlight)
             {
                 _flightRotation.SetLookRotation(Rigidbody.velocity);
+
+                _rotationLastFrame = transform.rotation;
+                _positionLastFrame = transform.position;
+
                 transform.rotation = _flightRotation;
             }
         }
@@ -48,10 +62,11 @@ namespace PWCDemo
             if(InFlight)
             {
                 SetInFlight(false);
-                Rigidbody.isKinematic = true;
-                Rigidbody.useGravity = false;
+                SetRigidbodyLocked(true);
                 Rigidbody.velocity = Vector3.zero;
                 OnImpactEvent();
+
+                transform.SetPositionAndRotation(_positionLastFrame, _rotationLastFrame);
             }
         }
     }
