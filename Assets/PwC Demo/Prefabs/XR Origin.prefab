@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 5789236656869072299}
   - component: {fileID: 5789236656869072296}
   - component: {fileID: 7971377715173501516}
+  - component: {fileID: 7026423376046760294}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -331,7 +332,7 @@ MonoBehaviour:
   m_MaxRaycastDistance: 30
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
-  m_Velocity: 16
+  m_Velocity: 8
   m_Acceleration: 9.8
   m_AdditionalGroundHeight: 0.1
   m_AdditionalFlightTime: 0.5
@@ -576,9 +577,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fd102249a6c8b45afbeb83ae14f498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactor: {fileID: 5789236656869072298}
   _renderer: {fileID: 5789236656869072299}
-  _actionReference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
+  _gripAction: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
+  _triggerAction: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+--- !u!114 &7026423376046760294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789236656869072294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a102e46b77621042ae653a151825d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _teleportationAction: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  _interactor: {fileID: 5789236656869072298}
+  _provider: {fileID: 7319766203302696589}
 --- !u!1 &5789236657151072852
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,6 +708,7 @@ GameObject:
   - component: {fileID: 5789236657482727318}
   - component: {fileID: 5789236657482727319}
   - component: {fileID: 5470246244202510007}
+  - component: {fileID: 5015897039244139759}
   m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -972,7 +993,7 @@ MonoBehaviour:
   m_MaxRaycastDistance: 30
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
-  m_Velocity: 16
+  m_Velocity: 8
   m_Acceleration: 9.8
   m_AdditionalGroundHeight: 0.1
   m_AdditionalFlightTime: 0.5
@@ -1217,9 +1238,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fd102249a6c8b45afbeb83ae14f498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactor: {fileID: 5789236657482727321}
   _renderer: {fileID: 5789236657482727318}
-  _actionReference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
+  _gripAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
+  _triggerAction: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+--- !u!114 &5015897039244139759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789236657482727317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a102e46b77621042ae653a151825d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _teleportationAction: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  _interactor: {fileID: 5789236657482727321}
+  _provider: {fileID: 7319766203302696589}
 --- !u!1 &5789236657660639389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,8 +1522,8 @@ MonoBehaviour:
   m_System: {fileID: 6674389127353238463}
   m_TurnAmount: 45
   m_DebounceTime: 0.5
-  m_EnableTurnLeftRight: 1
-  m_EnableTurnAround: 1
+  m_EnableTurnLeftRight: 0
+  m_EnableTurnAround: 0
   m_LeftHandSnapTurnAction:
     m_UseReference: 1
     m_Action:

@@ -105,7 +105,7 @@ namespace PWCDemo
                 elapsedTime += Time.deltaTime;
             }
 
-            if (arrow) PoolManager.Recycle(arrow.gameObject);
+            if (arrow) arrow.Cleanup();
             Cleanup();
         }
 
