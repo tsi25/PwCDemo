@@ -3,11 +3,20 @@ using PWCDemo.Pooling;
 
 namespace PWCDemo.Audio
 {
+    /// <summary>
+    /// Convenience class which manages audio playback of individual sound effects
+    /// </summary>
     public class AudioPlayer : MonoBehaviour
     {
-        [SerializeField]
+        /// <summary>
+        /// The <see cref="AudioSource"/> from which sound effects should be played
+        /// </summary>
+        [SerializeField, Tooltip("The audio source from which sound effects should be played")]
         private AudioSource _source;
-        [SerializeField]
+        /// <summary>
+        /// Configuration data managing how sound effects will be played
+        /// </summary>
+        [SerializeField, Tooltip("Configuration data managing how sound effects will be played")]
         private AudioData _data;
 
         private float _defaultPitch;

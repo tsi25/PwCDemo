@@ -7,15 +7,30 @@ namespace PWCDemo.Scoring
 {
     public class ScoreLabel : MonoBehaviour
     {
-        [SerializeField]
+        /// <summary>
+        /// <see cref="TextMeshProUGUI"/> used to display the score value
+        /// </summary>
+        [SerializeField, Tooltip("Label used to display the score value")]
         private TextMeshProUGUI _label;
-        [SerializeField]
+        /// <summary>
+        /// <see cref="CanvasGroup"/> used to handle transparency
+        /// </summary>
+        [SerializeField, Tooltip("Canvas group used to handle transparency")]
         private CanvasGroup _canvasGroup;
-        [SerializeField]
+        /// <summary>
+        /// Offset to lerp the label towards
+        /// </summary>
+        [SerializeField, Tooltip("Offset to lerp the label towards")]
         private Vector3 _targetOffset = Vector3.zero;
-        [SerializeField]
+        /// <summary>
+        /// Duration in seconds over which the label should be lerped
+        /// </summary>
+        [SerializeField, Tooltip("Duration over which the label should be lerped")]
         private float _floatDuration = 1f;
-        [SerializeField]
+        /// <summary>
+        /// <see cref="AnimationCurve"/> along which the labels lerp should be evaluated
+        /// </summary>
+        [SerializeField, Tooltip("Curve along which the labels lerp should be evaluated")]
         private AnimationCurve _curve = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(1f, 1f));
 
         /// <summary>
@@ -41,7 +56,9 @@ namespace PWCDemo.Scoring
             PoolManager.Recycle(gameObject);
         }
 
-
+        /// <summary>
+        /// Coroutine which handles fading and lerping the <see cref="ScoreLabel"/>
+        /// </summary>
         private IEnumerator FloatCoroutine()
         {
             float elapsedTime = 0f;

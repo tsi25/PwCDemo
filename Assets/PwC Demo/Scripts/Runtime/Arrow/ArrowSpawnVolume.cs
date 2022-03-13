@@ -3,15 +3,26 @@ using PWCDemo.Pooling;
 
 namespace PWCDemo
 {
+    /// <summary>
+    /// Class which handles spawning <see cref="Arrow"/>s as they are fired from the <see cref="Bow"/>
+    /// </summary>
     public class ArrowSpawnVolume : MonoBehaviour
     {
-        [SerializeField]
+        /// <summary>
+        /// <see cref="Arrow"/> prefab to spawn
+        /// </summary>
+        [SerializeField,Tooltip("Arrow prefab to spawn")]
         private Arrow _arrowPrefab = null;
-        [SerializeField]
+        /// <summary>
+        /// Position at which to spawn the <see cref="Arrow"/> prefab
+        /// </summary>
+        [SerializeField, Tooltip("Position at which to spawn the arrow prefab")]
         private Transform _spawnTransform = null;
 
-        private Arrow _currentArrow = null;
-
+        /// <summary>
+        /// Handles spawning a new <see cref="Arrow"/>
+        /// </summary>
+        /// <returns>The spawned <see cref="Arrow"/></returns>
         public Arrow SpawnArrow()
         {
             Arrow newArrow = PoolManager.Request(_arrowPrefab, _spawnTransform.position, _spawnTransform.rotation);
@@ -19,19 +30,19 @@ namespace PWCDemo
             return newArrow;
         }
 
-        private void OnTriggerExit(Collider other)
+        /// <summary>
+        /// Handles intercepting the OnArrowReleasedEvent from the <see cref="Bow"/>
+        /// </summary>
+        private void OnArrowReleased()
         {
-            Arrow arrow = other.GetComponent<Arrow>();
-            if(arrow == _currentArrow)
-            {
-                _currentArrow = SpawnArrow();
-            }
+            SpawnArrow();
         }
 
 
         private void Awake()
         {
             SpawnArrow();
+            Bow.OnArrowReleaseEvent += OnArrowReleased;
         }
     }
 }

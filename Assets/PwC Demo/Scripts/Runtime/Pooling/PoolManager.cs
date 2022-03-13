@@ -4,11 +4,17 @@ using UnityEngine;
 
 namespace PWCDemo.Pooling
 {
+    /// <summary>
+    /// Class which handles object pooling generically
+    /// </summary>
     public class PoolManager : MonoBehaviour
     {
         private static Dictionary<int, Queue<GameObject>> _objectPools = new Dictionary<int, Queue<GameObject>>();
 
         private static PoolManager _instance = null;
+        /// <summary>
+        /// Global instance of the <see cref="PoolManager"/> singleton
+        /// </summary>
         public static PoolManager Instance
         {
             get
@@ -142,4 +148,3 @@ namespace PWCDemo.Pooling
         }
     }
 }
-

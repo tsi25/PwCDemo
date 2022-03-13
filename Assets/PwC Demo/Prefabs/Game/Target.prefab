@@ -160,6 +160,7 @@ MonoBehaviour:
   _despawnParticlePrefab: {fileID: 762130262075219630, guid: 46e6e026983236247b2cafec3bd4e821,
     type: 3}
   _despawnDelay: 1
+  _autoDespawn: 1
   _targetCenter: {fileID: 7332290752598747302}
   _scoreLabelPrefab: {fileID: 7849677060589284986, guid: b7274686a28ff3f49833a8b14b772e53,
     type: 3}
@@ -193,5 +194,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.98979545, z: 0.06170407}
-  m_Center: {x: 0, y: 0.8282697, z: 0.010743812}
+  m_Size: {x: 1.2484498, y: 1.2438285, z: 0.07845348}
+  m_Center: {x: -0.0041873455, y: 1.0055345, z: 0.027493268}

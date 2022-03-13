@@ -6,22 +6,41 @@ using PWCDemo.Pooling;
 
 namespace PWCDemo
 {
+    /// <summary>
+    /// <see cref="Arrow"/> class responsible for managing <see cref="Arrow"/> behavior
+    /// </summary>
     public class Arrow : MonoBehaviour
     {
+        /// <summary>
+        /// Event which fires when the <see cref="Arrow"/> impacts something after being released
+        /// </summary>
         public Action OnImpactEvent { get; set; } = delegate { };
 
-        [field: SerializeField]
+        /// <summary>
+        /// Reference to the <see cref="XRGrabInteractable"/> component
+        /// </summary>
+        [field: SerializeField, Tooltip("Reference to the interactable component")]
         public XRGrabInteractable Interactable { get; private set; } = null;
-        [field: SerializeField]
-        public Rigidbody Rigidbody { get; private set; } = null;
-
-        [field: SerializeField]
+        /// <summary>
+        /// Reference to the <see cref="Arrow"/>'s <see cref="Rigidbody"/>
+        /// </summary>
+        [field: SerializeField, Tooltip("Reference to the arrow's rigidbody")]
+        public Rigidbody CachedRigidbody { get; private set; } = null;
+        /// <summary>
+        /// Boolean describing whether or not the <see cref="Arrow"/> is currently in flight
+        /// </summary>
+        [field: SerializeField, Tooltip("Boolean describign whether or not the arrow is currently in flight")]
         public bool InFlight { get; private set; } = false;
+        /// <summary>
+        /// Reference to the <see cref="Arrow"/>'s <see cref="TrailRenderer"/>
+        /// </summary>
+        [field: SerializeField, Tooltip("Reference to the arrow's trail renderer")]
+        public TrailRenderer CachedTrailRenderer { get; set; } = null;
 
-        [field: SerializeField]
-        public TrailRenderer TrailRenderer { get; set; } = null;
-
-        [SerializeField]
+        /// <summary>
+        /// Delay in seconds after which the arrow will be despawned once it's hit a surface
+        /// </summary>
+        [SerializeField, Tooltip("Delay in seconds after which the arrow will be despawned once it's hit a surface")]
         private float _despawnDelay = 10f;
 
         private Quaternion _rotationLastFrame = Quaternion.identity;
@@ -35,7 +54,7 @@ namespace PWCDemo
         public void Initialize()
         {
             SetRigidbodyLocked(false);
-            Interactable.enabled = true;
+            if(Interactable) Interactable.enabled = true;
         }
 
         /// <summary>
@@ -63,7 +82,7 @@ namespace PWCDemo
         public void SetInFlight(bool inFlight)
         {
             InFlight = inFlight;
-            TrailRenderer.gameObject.SetActive(inFlight);
+            if(CachedTrailRenderer) CachedTrailRenderer.gameObject.SetActive(inFlight);
         }
 
         /// <summary>
@@ -72,10 +91,14 @@ namespace PWCDemo
         /// <param name="locked">Whether or not physics simulation should be locked</param>
         public void SetRigidbodyLocked(bool locked)
         {
-            Rigidbody.useGravity = !locked;
-            Rigidbody.isKinematic = locked;
+            CachedRigidbody.useGravity = !locked;
+            CachedRigidbody.isKinematic = locked;
         }
 
+        /// <summary>
+        /// Handles cleaning up the <see cref="Arrow"/> after the given delay
+        /// </summary>
+        /// <param name="delay">Amount of time in seconds after which to despawn the <see cref="Arrow"/></param>
         private IEnumerator CleanupAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -87,7 +110,7 @@ namespace PWCDemo
         {
             if(InFlight)
             {
-                _flightRotation.SetLookRotation(Rigidbody.velocity);
+                _flightRotation.SetLookRotation(CachedRigidbody.velocity);
 
                 _rotationLastFrame = transform.rotation;
                 _positionLastFrame = transform.position;
@@ -102,7 +125,7 @@ namespace PWCDemo
             {
                 SetInFlight(false);
                 SetRigidbodyLocked(true);
-                Rigidbody.velocity = Vector3.zero;
+                CachedRigidbody.velocity = Vector3.zero;
                 OnImpactEvent();
 
                 transform.SetPositionAndRotation(_positionLastFrame, _rotationLastFrame);

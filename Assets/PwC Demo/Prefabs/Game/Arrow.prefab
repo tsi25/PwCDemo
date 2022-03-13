@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1969271865316103357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 492793587271553801}
+  - component: {fileID: 6526868535787206367}
+  - component: {fileID: 936215761552605164}
+  m_Layer: 9
+  m_Name: Nock Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &492793587271553801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969271865316103357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5102371421472925964}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6526868535787206367
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969271865316103357}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &936215761552605164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969271865316103357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb0bf0035ece2a42b3a068fe77ad39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CachedArrow>k__BackingField: {fileID: 5293116895389272901}
 --- !u!1 &4825094890003797349
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +344,7 @@ Transform:
   - {fileID: 1930727182646796406}
   - {fileID: 5930805599806863590}
   - {fileID: 4962650759918292856}
+  - {fileID: 492793587271553801}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -302,9 +361,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Interactable>k__BackingField: {fileID: 5802951544485193909}
-  <Rigidbody>k__BackingField: {fileID: 3130215564954161956}
+  <CachedRigidbody>k__BackingField: {fileID: 3130215564954161956}
   <InFlight>k__BackingField: 0
-  <TrailRenderer>k__BackingField: {fileID: 5461395534301607949}
+  <CachedTrailRenderer>k__BackingField: {fileID: 5461395534301607949}
+  _despawnDelay: 10
 --- !u!54 &3130215564954161956
 Rigidbody:
   m_ObjectHideFlags: 0

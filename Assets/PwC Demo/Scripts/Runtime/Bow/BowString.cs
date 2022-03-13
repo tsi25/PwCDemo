@@ -1,36 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PWCDemo
 {
+    /// <summary>
+    /// Class which manages rendering the bow string
+    /// </summary>
     public class BowString : MonoBehaviour
     {
-        [SerializeField]
+        /// <summary>
+        /// Reference to the <see cref="LineRenderer"/> being used
+        /// </summary>
+        [SerializeField, Tooltip("Reference to the line renderer being used")]
         private LineRenderer _lineRenderer = null;
-        [SerializeField]
+        /// <summary>
+        /// The points along which the <see cref="BowString"/> should be strung
+        /// </summary>
+        [SerializeField, Tooltip("The points along which the bow string should be strung")]
         private Transform[] _points = new Transform[0];
 
-        private Vector3[] _positions = new Vector3[0];
-
+        /// <summary>
+        /// Handles updating the bowstring points
+        /// </summary>
         public void UpdateBowstringPoints()
         {
             for(int i = 0; i < _points.Length; i++)
             {
-                _positions[i] = _points[i].position;
+                _lineRenderer.SetPosition(i, _points[i].position);
             }
-
-            _lineRenderer.SetPositions(_positions);
         }
 
         private void Update()
         {
             UpdateBowstringPoints();
-        }
-
-        private void Awake()
-        {
-            _positions = new Vector3[_points.Length];
         }
     }
 }

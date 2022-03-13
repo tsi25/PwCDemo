@@ -1,16 +1,29 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PWCDemo.Pooling;
 
 namespace PWCDemo
 {
+    /// <summary>
+    /// Convenience which handles spawning <see cref="Target"/>s in a configurable area
+    /// </summary>
     public class TargetSpawnVolume : MonoBehaviour
     {
-        [SerializeField]
+        /// <summary>
+        /// The <see cref="Target"/> prefab to be spawned within this <see cref="TargetSpawnVolume"/>
+        /// </summary>
+        [SerializeField, Tooltip("The target prefab to be spawned within this volume")]
         private Target _targetPrefab = null;
-        [SerializeField]
+        /// <summary>
+        /// Max number of <see cref="Target"/>s that can be spawned at once
+        /// </summary>
+        [SerializeField, Tooltip("Max number of targets that can be spawned at once")]
         private int _targetCap = 5;
+        /// <summary>
+        /// <see cref="Color"/> the preview spawn area gizmo should render as when selected
+        /// </summary>
+        [SerializeField, Tooltip("Color the preview spawn area gizmo should render as when selected")]
+        private Color _gizmoColor = new Color(1, 0, 0, 0.5f);
 
         private List<Target> _spawnedTargets = new List<Target>();
 
@@ -68,14 +81,16 @@ namespace PWCDemo
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = new Color(1, 0, 0, 0.5f);
+            Gizmos.color = _gizmoColor;
             Gizmos.DrawCube(transform.position, transform.localScale);
         }
 
+#if UNITY_EDITOR
         [ContextMenu("Generate Target")]
         private void EditorGenerateTarget()
         {
             GenerateTarget();
         }
+#endif
     }
 }

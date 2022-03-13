@@ -8,45 +8,91 @@ using PWCDemo.Particles;
 
 namespace PWCDemo
 {
+    /// <summary>
+    /// Class which manages the gameplay behavior of targets
+    /// </summary>
     public class Target : MonoBehaviour
     {
+        /// <summary>
+        /// Event which fires when a <see cref="Target"/> is hit
+        /// </summary>
         public Action<Target, int> OnTargetHitEvent { get; set; } = delegate { };
+        /// <summary>
+        /// Event which fires when a <see cref="Target"/> is cleaned up
+        /// </summary>
         public Action<Target> OnTargetCleanupEvent { get; set; } = delegate { };
 
+        /// <summary>
+        /// <see cref="ParticlePlayer"/> prefab to spawn when the <see cref="Target"/> is despawned
+        /// </summary>
         [Header("Despawn")]
-        [SerializeField]
+        [SerializeField, Tooltip("Particle prefab to spawn when the target is despawned")]
         private ParticlePlayer _despawnParticlePrefab = null;
-        [SerializeField]
+        /// <summary>
+        /// Delay after which the <see cref="Target"/> should be despawned
+        /// </summary>
+        [SerializeField, Tooltip("Delay after which the target should be despawned")]
         private float _despawnDelay = 0.5f;
-        [SerializeField]
+        /// <summary>
+        /// Whether or not this <see cref="Target"/> should despawn itself once its hit
+        /// </summary>
+        [SerializeField, Tooltip("Whether or not this target should despawn itself once its hit")]
         private bool _autoDespawn = true;
 
+        /// <summary>
+        /// <see cref="Transform"/> representing the center of the <see cref="Target"/>
+        /// </summary>
         [Header("Scoring")]
-        [SerializeField]
+        [SerializeField, Tooltip("Transform representing the center of the target")]
         private Transform _targetCenter = null;
-        [SerializeField]
+        /// <summary>
+        /// <see cref="ScoreLabel"/> prefab to spawn to display score when a <see cref="Target"/> is hit
+        /// </summary>
+        [SerializeField, Tooltip("Label prefab to spawn to display score when a target is hit")]
         private ScoreLabel _scoreLabelPrefab = null;
-        [SerializeField]
+        /// <summary>
+        /// Configurable <see cref="ScoreThreshold"/> used to calculate user score
+        /// </summary>
+        [SerializeField, Tooltip("Configurable scoring thresholds used to calculate user score")]
         private ScoreThreshold[] _scoringThresholds = new ScoreThreshold[0];
 
-
+        /// <summary>
+        /// <see cref="AudioPlayer"/> prefab to spawn when playing a sound effect
+        /// </summary>
         [Header("Audio")]
-        [SerializeField]
-        private AudioPlayer _audioPlayerPrefab;
-        [SerializeField]
+        [SerializeField, Tooltip("Prefab to spawn when playing a sound effect")]
+        private AudioPlayer _audioPlayerPrefab = null;
+        /// <summary>
+        /// Sound to play when a <see cref="Target"/> is spawned
+        /// </summary>
+        [SerializeField, Tooltip("Sound to play when a target is spawned")]
         private AudioClip _spawnSound = null;
-        [SerializeField]
+        /// <summary>
+        /// Sound to play when a <see cref="Target"/> is hit
+        /// </summary>
+        [SerializeField, Tooltip("Sound to play when a target is hit")]
         private AudioClip _hitSound = null;
-        [SerializeField]
+        /// <summary>
+        /// Sound to play when a <see cref="Target"/> is despawned
+        /// </summary>
+        [SerializeField, Tooltip("Sound to play when a target is despawned")]
         private AudioClip _despawnSound = null;
 
+        /// <summary>
+        /// Default <see cref="Material"/> the <see cref="Target"/> should be rendered with
+        /// </summary>
         [Header("Rendering")]
-        [SerializeField]
+        [SerializeField, Tooltip("Default material the target should be rendered with")]
         private Material _defaultMaterial = null;
-        [SerializeField]
+        /// <summary>
+        /// <see cref="Material"/> the <see cref="Target"/> should be rendered with once hit
+        /// </summary>
+        [SerializeField, Tooltip("Material the target should be rendered with once hit")]
         private Material _hitMaterial = null;
-
-        [SerializeField]
+        /// <summary>
+        /// Reference to the <see cref="Target"/>'s <see cref="MeshRenderer"/>
+        /// </summary>
+        [SerializeField, Tooltip("Reference to the target's mesh renderer")]
         private MeshRenderer _meshRenderer = null;
 
         private bool _canHit = false;
@@ -148,15 +194,17 @@ namespace PWCDemo
             if (arrow != null) _ = ProcessHit(collision, arrow);
         }
 
+        private void Awake()
+        {
+            _canHit = true;
+        }
+
+#if UNITY_EDITOR
         [ContextMenu("Simulate Hit")]
         private void SimulateHit()
         {
             _ = ProcessHit();
         }
-
-        private void Awake()
-        {
-            _canHit = true;
-        }
+#endif
     }
 }
