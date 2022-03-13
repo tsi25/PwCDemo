@@ -53,6 +53,7 @@ namespace PWCDemo
         /// </summary>
         public void Initialize()
         {
+            CachedRigidbody.velocity = Vector3.zero;
             SetRigidbodyLocked(false);
             if(Interactable) Interactable.enabled = true;
         }
