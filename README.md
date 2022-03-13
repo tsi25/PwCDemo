@@ -18,6 +18,8 @@ To shoot an arrow, it must be nocked on the bowstring by bringing the back of th
 
 The code I wrote can be found in the "Assets\PwC Demo\Scripts" directory. 
 
+If you want to see how I organized my thoughts, you can view the Trello board I utilized to manage my time [HERE](https://trello.com/b/YSrThxVC/agile-sprint-board). I didn't quite get to everything I wanted to do, but what I was able to get done over the weekend is a solid representation of my abilities.
+
 ## Hardware
 
 This was prototyped with the Meta Quest 2 in mind since that's what I had available to me. I'm not sure how well this prototype will function on other VR headsets
